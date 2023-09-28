@@ -6,11 +6,6 @@ Buzzer::Buzzer(int pin, int *notesArray, int *durationsArray, int arraySize, flo
 {
 }
 
-Buzzer::~Buzzer()
-{
-    // Destructor: Nothing to free as we're not dynamically allocating memory in this case
-}
-
 void Buzzer::playNote()
 {
     if (currentNote < noteSize)

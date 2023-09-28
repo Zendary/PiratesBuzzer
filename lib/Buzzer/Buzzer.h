@@ -16,7 +16,7 @@ private:
 
 public:
     Buzzer(int pin, int *notesArray, int *durationsArray, int arraySize, float speed = 1.0);
-    ~Buzzer();
+
     void playNote();
     void start();
     void update();
