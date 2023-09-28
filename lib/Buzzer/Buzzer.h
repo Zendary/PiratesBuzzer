@@ -21,6 +21,7 @@ public:
     Buzzer(int pin, float speed, const int notesArray[], const int durationsArray[], int size);
     void playNote();
     void update();
+    void start();
 };
 
 #endif // BUZZER_H

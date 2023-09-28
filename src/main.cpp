@@ -130,6 +130,7 @@ void setup()
 {
   // Initialize the buzzer pin as output
   pinMode(D7, OUTPUT);
+  myBuzzer.start(); // Start playing the notes
 }
 
 void loop()

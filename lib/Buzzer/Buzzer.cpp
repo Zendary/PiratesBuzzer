@@ -24,13 +24,14 @@ void Buzzer::playNote()
         int noteDuration = songSpeed * durations[currentNote];
         if (notes[currentNote] != 0)
         {
-            tone(buzzerPin, notes[currentNote], noteDuration);
+            tone(buzzerPin, notes[currentNote]);
         }
         else
         {
             noTone(buzzerPin);
         }
         previousMillis = millis();
+        nextNoteTime = previousMillis + noteDuration;
         currentNote++;
     }
     else
@@ -42,9 +43,15 @@ void Buzzer::playNote()
 
 void Buzzer::update()
 {
-    unsigned long currentMillis = millis();
-    if (isPlaying && (currentMillis - previousMillis >= durations[currentNote] * songSpeed))
+    if (isPlaying && millis() >= nextNoteTime)
     {
         playNote();
     }
+}
+
+void Buzzer::start()
+{
+    isPlaying = true;
+    currentNote = 0;
+    playNote();
 }
