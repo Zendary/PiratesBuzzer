@@ -9,19 +9,18 @@ private:
     int *notes;
     int *durations;
     int noteSize;
-
-    unsigned long previousMillis;
     int currentNote;
     bool isPlaying;
-
     int buzzerPin;
     float songSpeed;
+    unsigned long previousMillis;
+    unsigned long nextNoteTime;
 
 public:
-    Buzzer(int pin, float speed, const int notesArray[], const int durationsArray[], int size);
+    Buzzer(int pin, int *notesArray, int *durationsArray, int arraySize, float speed = 1.0);
     void playNote();
-    void update();
     void start();
+    void update();
 };
 
 #endif // BUZZER_H
