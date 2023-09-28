@@ -121,34 +121,31 @@ int durations[] = {
     250, 125, 375, 250, 125, 375,
     125, 125, 125, 125, 125, 500};
 
-unsigned long previousMillis = 0;
-int currentNote = 0;
-bool isPlaying = false;
+#include "Buzzer.h"
 
-void playNote() {
-  if (currentNote < sizeof(notes) / sizeof(int)) {
-    int noteDuration = songSpeed * durations[currentNote];
-    if (notes[currentNote] != 0) {
-      tone(buzzer, notes[currentNote], noteDuration);
-    } else {
-      noTone(buzzer);
-    }
-    previousMillis = millis();
-    currentNote++;
-  } else {
-    currentNote = 0;
-    isPlaying = false;
-  }
+// Define your notes and durations arrays here
+int myNotes[] = {
+    NOTE_E4, NOTE_G4, NOTE_A4, NOTE_A4, 0,
+    // ... (all the other notes you provided) ...
+    NOTE_B4, NOTE_C5, 0, NOTE_B4, 0, NOTE_A4};
+
+int myDurations[] = {
+    125, 125, 250, 125, 125,
+    // ... (all the other durations you provided) ...
+    125, 125, 125, 125, 125, 500};
+
+const int sizeOfNotes = sizeof(myNotes) / sizeof(myNotes[0]);
+
+Buzzer myBuzzer(D7, 1.0, myNotes, myDurations, sizeOfNotes);
+
+void setup()
+{
+  // Initialize the buzzer pin as output
+  pinMode(D7, OUTPUT);
 }
 
-void setup() {
-  // Initialize your setup code here (if any)
-}
-
-void loop() {
-  if (!isPlaying || (millis() - previousMillis >= songSpeed * durations[currentNote])) {
-    playNote();
-    isPlaying = true;
-  }
-  // Your other non-blocking code can go here
+void loop()
+{
+  myBuzzer.playNote();
+  delay(500); // Example delay between notes, adjust as needed
 }
