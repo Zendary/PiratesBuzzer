@@ -1,10 +1,6 @@
 #include <Arduino.h>
 #include "buzzer.h"
 
-const int buzzer = D7;
-
-const float songSpeed = 1.0;
-
 #define NOTE_C4 262
 #define NOTE_D4 294
 #define NOTE_E4 330
