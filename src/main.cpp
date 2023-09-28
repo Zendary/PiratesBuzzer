@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "buzzer.h"
 
 const int buzzer = D7;
 
