@@ -1,20 +1,14 @@
-// Buzzer.cpp
 #include "Buzzer.h"
 #include <Arduino.h>
 
-Buzzer::Buzzer(int pin, float speed, const int notesArray[], const int durationsArray[], int size)
-    : buzzerPin(pin), songSpeed(speed), noteSize(size), previousMillis(0), currentNote(0), isPlaying(false)
+Buzzer::Buzzer(int pin, int *notesArray, int *durationsArray, int arraySize, float speed)
+    : buzzerPin(pin), notes(notesArray), durations(durationsArray), noteSize(arraySize), songSpeed(speed), isPlaying(false), currentNote(0), previousMillis(0)
 {
+}
 
-    notes = new int[noteSize];
-    durations = new int[noteSize];
-
-    // Copy notes and durations to class arrays
-    for (int i = 0; i < noteSize; i++)
-    {
-        notes[i] = notesArray[i];
-        durations[i] = durationsArray[i];
-    }
+Buzzer::~Buzzer()
+{
+    // Destructor: Nothing to free as we're not dynamically allocating memory in this case
 }
 
 void Buzzer::playNote()
@@ -41,17 +35,17 @@ void Buzzer::playNote()
     }
 }
 
+void Buzzer::start()
+{
+    isPlaying = true;
+    currentNote = 0;
+    playNote();
+}
+
 void Buzzer::update()
 {
     if (isPlaying && millis() >= nextNoteTime)
     {
         playNote();
     }
-}
-
-void Buzzer::start()
-{
-    isPlaying = true;
-    currentNote = 0;
-    playNote();
 }

@@ -1,5 +1,3 @@
-// Buzzer.h
-#include <Arduino.h>
 #ifndef BUZZER_H
 #define BUZZER_H
 
@@ -11,16 +9,17 @@ private:
     int noteSize;
     int currentNote;
     bool isPlaying;
-    int buzzerPin;
+    const int buzzerPin;
     float songSpeed;
     unsigned long previousMillis;
     unsigned long nextNoteTime;
 
 public:
     Buzzer(int pin, int *notesArray, int *durationsArray, int arraySize, float speed = 1.0);
+    ~Buzzer();
     void playNote();
     void start();
     void update();
 };
 
-#endif // BUZZER_H
+#endif

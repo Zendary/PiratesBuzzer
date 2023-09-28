@@ -122,9 +122,7 @@ int durations[] = {
     250, 125, 375, 250, 125, 375,
     125, 125, 125, 125, 125, 500};
 
-const int sizeOfNotes = sizeof(notes) / sizeof(notes[0]);
-
-Buzzer myBuzzer(D7, 1.0, notes, durations, sizeOfNotes);
+Buzzer myBuzzer(D7, notes, durations, sizeof(notes) / sizeof(int));
 
 void setup()
 {
@@ -135,6 +133,5 @@ void setup()
 
 void loop()
 {
-  myBuzzer.playNote();
-  myBuzzer.update(); // Continuously checks if it's time to play the next note.
+  myBuzzer.update();
 }
