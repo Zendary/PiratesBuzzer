@@ -161,6 +161,7 @@ void loop()
         
     }
 
+    // Check if the button is not pressed
     if(digitalRead(myButton._pin) == LOW){
         if(playMelody == false){
             myBuzzer.start();
