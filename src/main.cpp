@@ -1,5 +1,8 @@
 #include <Arduino.h>
 #include "buzzer.h"
+#include "button.h"
+
+Button myButton(D2, true);
 
 #define NOTE_C4 262
 #define NOTE_D4 294
@@ -120,14 +123,40 @@ int durations[] = {
 
 Buzzer myBuzzer(D7, notes, durations, sizeof(notes) / sizeof(int));
 
+bool playMelody = true; // Flag to control melody playback
+
 void setup()
 {
   // Initialize the buzzer pin as output
   pinMode(D7, OUTPUT);
   myBuzzer.start(); // Start playing the notes
+
+   // Initialize the button
+    myButton.setup(millis());
+
+    // Initialize serial communication
+  Serial.begin(9600);
 }
+
+bool isPlaying = true; // Flag to control melody playback
 
 void loop()
 {
-  myBuzzer.update();
+    myButton.update(millis()); // Update the button state
+
+     // Print the button state to the serial monitor
+    Serial.println(myButton.GetButtonState());
+
+    // Check if the button is pressed
+    if (myButton.GetButtonState())
+    {
+        playMelody = !playMelody; // Set the flag to play the melody
+    }
+
+    // Check if the melody should be played
+    if (playMelody)
+    {
+        myBuzzer.update(); // Play the melody
+        
+    }
 }
