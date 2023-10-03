@@ -44,3 +44,9 @@ void Buzzer::update()
         playNote();
     }
 }
+
+void Buzzer::stop()
+{
+    isPlaying = false;
+    noTone(buzzerPin);
+}

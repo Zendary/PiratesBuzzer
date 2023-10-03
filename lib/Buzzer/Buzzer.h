@@ -20,6 +20,7 @@ public:
     void playNote();
     void start();
     void update();
+    void stop();
 };
 
 #endif

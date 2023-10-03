@@ -123,7 +123,7 @@ int durations[] = {
 
 Buzzer myBuzzer(D7, notes, durations, sizeof(notes) / sizeof(int));
 
-bool playMelody = true; // Flag to control melody playback
+bool playMelody; // Flag to control melody playback
 
 void setup()
 {
@@ -146,15 +146,33 @@ void loop()
 
      // Print the button state to the serial monitor
     Serial.println(myButton.GetButtonState());
+    Serial.println(playMelody);
+    Serial.println(myButton._pin);
 
     // Check if the button is pressed
-    if (myButton.GetButtonState())
+    if (digitalRead(myButton._pin) == HIGH)
     {
-        playMelody = !playMelody; // Set the flag to play the melody
+        
+        playMelody = false; // Set the flag to play the melody
+        if(playMelody == false){
+            myBuzzer.stop();
+        }
+        
+        
+    }
+
+    if(digitalRead(myButton._pin) == LOW){
+        if(playMelody == false){
+            myBuzzer.start();
+        }
+        playMelody = true;
+        if(playMelody == true){
+            myBuzzer.update();
+        }
     }
 
     // Check if the melody should be played
-    if (playMelody)
+    if (playMelody == true)
     {
         myBuzzer.update(); // Play the melody
         
