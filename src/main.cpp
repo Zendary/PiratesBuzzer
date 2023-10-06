@@ -124,58 +124,61 @@ int durations[] = {
 Buzzer myBuzzer(D7, notes, durations, sizeof(notes) / sizeof(int));
 
 bool playMelody; // Flag to control melody playback
+const int lightPin = D4; // Define the pin for the light
 
 void setup()
 {
-  // Initialize the buzzer pin as output
-  pinMode(D7, OUTPUT);
-  myBuzzer.start(); // Start playing the notes
+    pinMode(lightPin, OUTPUT);
+    digitalWrite(lightPin, LOW); // Light off by default
 
-   // Initialize the button
+    // Initialize the buzzer pin as output
+    pinMode(D7, OUTPUT);
+    myBuzzer.start(); // Start playing the notes
+
+    // Initialize the button
     myButton.setup(millis());
 
     // Initialize serial communication
-  Serial.begin(9600);
+    Serial.begin(9600);
 }
 
 bool isPlaying = true; // Flag to control melody playback
+
 
 void loop()
 {
     myButton.update(millis()); // Update the button state
 
-     // Print the button state to the serial monitor
+    // Print the button state to the serial monitor
     Serial.println(myButton.GetButtonState());
-    Serial.println(playMelody);
-    Serial.println(myButton._pin);
 
     // Check if the button is pressed
     if (digitalRead(myButton._pin) == HIGH)
     {
-        
         playMelody = false; // Set the flag to play the melody
-        if(playMelody == false){
-            myBuzzer.stop();
-        }
-        
-        
+        myBuzzer.stop();
+        digitalWrite(lightPin, LOW); // Turn off the light
     }
 
     // Check if the button is not pressed
-    if(digitalRead(myButton._pin) == LOW){
-        if(playMelody == false){
+    if (digitalRead(myButton._pin) == LOW)
+    {
+        if (playMelody == false)
+        {
             myBuzzer.start();
         }
         playMelody = true;
-        if(playMelody == true){
+        if (playMelody == true)
+        {
             myBuzzer.update();
         }
+
+        digitalWrite(lightPin, HIGH); // Turn on the light
     }
 
     // Check if the melody should be played
     if (playMelody == true)
     {
         myBuzzer.update(); // Play the melody
-        
     }
 }
