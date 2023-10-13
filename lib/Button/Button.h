@@ -19,8 +19,6 @@ private:
     ButtonState _buttonState;
     long _nextChangeTime;
     int _lastButtonState;
-    const static long _debounceDelay = 50; // Adjust the debounce delay as needed
-    long _lastDebounceTime;
 };
 
 #endif // BUTTON_H

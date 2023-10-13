@@ -129,9 +129,9 @@ const int lightPin2 = D5; // Define the pin for the light
 
 void setup()
 {
-    pinMode(lightPin1, OUTPUT);
+    pinMode(lightPin1, OUTPUT); // Initialize the light pin as output
     digitalWrite(lightPin1, LOW); // Light off by default
-    pinMode(lightPin2, OUTPUT);
+    pinMode(lightPin2, OUTPUT); // Initialize the light pin as output
     digitalWrite(lightPin2, LOW); // Light off by default
 
     // Initialize the buzzer pin as output

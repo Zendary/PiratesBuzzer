@@ -1,7 +1,7 @@
 #include "Button.h"
 #include <Arduino.h>
 
-Button::Button(int pin, bool buttonDown) : _pin(pin), _buttonDown(buttonDown), _lastDebounceTime(0), _lastButtonState(HIGH) {}
+Button::Button(int pin, bool buttonDown) : _pin(pin), _buttonDown(buttonDown) {}
 
 void Button::setup(long startTime) {
     pinMode(_pin, INPUT_PULLUP);
@@ -14,15 +14,9 @@ void Button::update(long now) {
     Serial.println(reading);
 
     if (reading != _lastButtonState) {
-        _lastDebounceTime = now;
-    }
-
-    if (now - _lastDebounceTime > _debounceDelay) {
-        if (reading != _lastButtonState) {
-            if ((reading == LOW && _buttonDown) || (reading == HIGH && !_buttonDown)) {
-                _buttonState = Push;
-                _nextChangeTime = now + _noiseCancelTimer;
-            }
+        if ((reading == LOW && _buttonDown) || (reading == HIGH && !_buttonDown)) {
+            _buttonState = Push;
+            _nextChangeTime = now + _noiseCancelTimer;
         }
     }
 
@@ -48,7 +42,7 @@ void Button::update(long now) {
             _buttonState = Off;
             break;
     }
-     Serial.print("Button State: ");
+    Serial.print("Button State: ");
     Serial.println(_buttonState);
 }
 
