@@ -124,12 +124,15 @@ int durations[] = {
 Buzzer myBuzzer(D7, notes, durations, sizeof(notes) / sizeof(int));
 
 bool playMelody; // Flag to control melody playback
-const int lightPin = D4; // Define the pin for the light
+const int lightPin1 = D4; // Define the pin for the light
+const int lightPin2 = D5; // Define the pin for the light
 
 void setup()
 {
-    pinMode(lightPin, OUTPUT);
-    digitalWrite(lightPin, LOW); // Light off by default
+    pinMode(lightPin1, OUTPUT);
+    digitalWrite(lightPin1, LOW); // Light off by default
+    pinMode(lightPin2, OUTPUT);
+    digitalWrite(lightPin2, LOW); // Light off by default
 
     // Initialize the buzzer pin as output
     pinMode(D7, OUTPUT);
@@ -157,7 +160,8 @@ void loop()
     {
         playMelody = false; // Set the flag to play the melody
         myBuzzer.stop();
-        digitalWrite(lightPin, LOW); // Turn off the light
+        digitalWrite(lightPin1, LOW); // Turn off the light
+        digitalWrite(lightPin2, LOW); // Turn off the light
     }
 
     // Check if the button is not pressed
@@ -173,7 +177,8 @@ void loop()
             myBuzzer.update();
         }
 
-        digitalWrite(lightPin, HIGH); // Turn on the light
+        digitalWrite(lightPin1, HIGH); // Turn on the light
+        digitalWrite(lightPin2, HIGH); // Turn on the light
     }
 
     // Check if the melody should be played
